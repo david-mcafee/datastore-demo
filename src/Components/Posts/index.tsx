@@ -77,6 +77,30 @@ const Posts = () => {
     }
   }
 
+  async function editPostTitle(value: string, post: Post) {
+    try {
+      await DataStore.save(
+        Post.copyOf(post, (updated) => {
+          updated.title = value;
+        })
+      );
+    } catch (error) {
+      console.log("Error editing post", error);
+    }
+  }
+
+  async function editPostStatus(value: PostStatus, post: Post) {
+    try {
+      await DataStore.save(
+        Post.copyOf(post, (updated) => {
+          updated.status = value;
+        })
+      );
+    } catch (error) {
+      console.log("Error editing post", error);
+    }
+  }
+
   // Hub
   useEffect(() => {
     // Create listener
@@ -96,7 +120,7 @@ const Posts = () => {
         <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>My Posts</Header.Content>
-          <Header sub>Amplify DataStore Demo</Header>
+          <Header sub>Amplify DataStore Demo (Subject to frequent bugs)</Header>
         </Header>
         <Input
           onChange={(event) => setInput("title", event.target.value)}
@@ -123,10 +147,24 @@ const Posts = () => {
               </ListContent>
               <ListContent>
                 <ListHeader>
-                  <p>{post.title}</p>
+                  <Input
+                    onChange={(event) =>
+                      editPostTitle(event.target.value, post)
+                    }
+                    value={post.title}
+                  />
                 </ListHeader>
                 <ListDescription>
-                  <p>{post.status}</p>
+                  <Dropdown
+                    placeholder="Select Status"
+                    fluid
+                    selection
+                    options={statusOptions}
+                    onChange={(event, data) =>
+                      editPostStatus(data.value as PostStatus, post)
+                    }
+                    value={post.status}
+                  />
                 </ListDescription>
               </ListContent>
             </ListItem>
