@@ -10,6 +10,11 @@
       "StackName": "amplify-datastoredemo-dev-123130",
       "StackId": "arn:aws:cloudformation:us-west-2:055345086115:stack/amplify-datastoredemo-dev-123130/040a7ea0-26dc-11ec-81dc-067f0ea0959d",
       "AmplifyAppId": "d2e29hbjioeu3o"
+    },
+    "categories": {
+      "auth": {
+        "datastoredemo78ccaeff": {}
+      }
     }
   }
 }
