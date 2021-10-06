@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
+import "semantic-ui-css/semantic.min.css";
 
 Amplify.configure(awsExports);
 
