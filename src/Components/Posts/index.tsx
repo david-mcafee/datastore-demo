@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DataStore, Hub } from "aws-amplify";
+import { DataStore, Hub, Predicates } from "aws-amplify";
 import {
   Button,
   Header,
@@ -74,45 +74,87 @@ const Posts = () => {
       console.log("Post saved successfully!");
     } catch (error) {
       console.log("Error saving post", error);
+    } finally {
+      // TODO:
+      fetchPosts();
     }
   }
 
   async function editPostTitle(value: string, post: Post) {
     try {
       await DataStore.save(
+        // Models in DataStore are immutable. To update a record you must use the
+        // copyOf function to apply updates to the item's fields rather than
+        // mutating the instance directly.
         Post.copyOf(post, (updated) => {
           updated.title = value;
         })
       );
     } catch (error) {
       console.log("Error editing post", error);
+    } finally {
+      // TODO:
+      fetchPosts();
     }
   }
 
   async function editPostStatus(value: PostStatus, post: Post) {
+    // const original = await DataStore.query(Post, post.id);
     try {
       await DataStore.save(
+        // Models in DataStore are immutable. To update a record you must use the
+        // copyOf function to apply updates to the item's fields rather than
+        // mutating the instance directly.
         Post.copyOf(post, (updated) => {
           updated.status = value;
         })
       );
     } catch (error) {
       console.log("Error editing post", error);
+    } finally {
+      // TODO:
+      fetchPosts();
+    }
+  }
+
+  async function deletePost(postToDelete: Post) {
+    // const original = await DataStore.query(Post, post.id);
+    try {
+      await DataStore.delete(postToDelete, (post) =>
+        post.status("eq", PostStatus.DRAFT)
+      );
+    } catch (error) {
+      console.log("Error deleting post", error);
+    } finally {
+      // TODO:
+      fetchPosts();
+    }
+  }
+
+  async function deleteAllPosts() {
+    // const original = await DataStore.query(Post, post.title);
+    try {
+      await DataStore.delete(Post, Predicates.ALL);
+    } catch (error) {
+      console.log("Error deleting posts", error);
+    } finally {
+      // TODO:
+      fetchPosts();
     }
   }
 
   // Hub
-  useEffect(() => {
-    // Create listener
-    const listener = Hub.listen("datastore", async (hubData) => {
-      const { event, data } = hubData.payload;
-      console.log("Hub event:", event);
-      console.log("Hub data:", data);
-    });
+  // useEffect(() => {
+  //   // Create listener
+  //   const listener = Hub.listen("datastore", async (hubData) => {
+  //     const { event, data } = hubData.payload;
+  //     console.log("Hub event:", event);
+  //     console.log("Hub data:", data);
+  //   });
 
-    // Remove listener
-    return listener;
-  }, []);
+  //   // Remove listener
+  //   return listener;
+  // }, []);
 
   return (
     <div className={parentContainer}>
@@ -120,8 +162,9 @@ const Posts = () => {
         <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>My Posts</Header.Content>
-          <Header sub>Amplify DataStore Demo (Subject to frequent bugs)</Header>
+          <Header sub>Amplify DataStore Demo</Header>
         </Header>
+        <Button onClick={() => deleteAllPosts()}>Delete All Posts</Button>
         <Input
           onChange={(event) => setInput("title", event.target.value)}
           value={formState.title}
@@ -141,7 +184,7 @@ const Posts = () => {
           {posts.map((post, index) => (
             <ListItem key={post.id ? post.id : index}>
               <ListContent floated="right">
-                <Button onClick={() => console.log("test")} icon circular>
+                <Button onClick={() => deletePost(post)} icon circular>
                   <Icon name="delete" color="red" />
                 </Button>
               </ListContent>
