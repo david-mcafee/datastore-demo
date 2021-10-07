@@ -4,9 +4,19 @@ type Post @model {
   status: PostStatus!
   rating: Int
   content: String
+  # New field with @connection
+  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
 }
 
 enum PostStatus {
   DRAFT
   PUBLISHED
+}
+
+# https://docs.amplify.aws/lib/datastore/relational/q/platform/js/#updated-schema
+# New model
+type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+  id: ID!
+  postID: ID!
+  content: String!
 }

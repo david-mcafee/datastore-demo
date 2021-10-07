@@ -21,6 +21,10 @@ export const syncPosts = /* GraphQL */ `
         status
         rating
         content
+        comments {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -40,6 +44,20 @@ export const getPost = /* GraphQL */ `
       status
       rating
       content
+      comments {
+        items {
+          id
+          postID
+          content
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -60,6 +78,74 @@ export const listPosts = /* GraphQL */ `
         title
         status
         rating
+        content
+        comments {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncComments = /* GraphQL */ `
+  query SyncComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncComments(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        postID
+        content
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      postID
+      content
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        postID
         content
         _version
         _deleted

@@ -5,8 +5,10 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
 import Nav from "./Components/Nav";
+import PostComments from "./Components/PostComments";
 
 const Posts = React.lazy(() => import("./Components/Posts"));
+// const PostComments = React.lazy(() => import("./Components/PostComments"));
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -115,6 +117,14 @@ const App = () => {
               </UserContext.Provider>
             </React.Suspense>
           </Route>
+          <Route
+            exact
+            path="/posts/:id"
+            render={(props) => {
+              const postId = props?.match?.params?.id;
+              return <PostComments postId={postId} />;
+            }}
+          />
         </Switch>
       </div>
     </Router>

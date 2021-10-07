@@ -40,6 +40,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "comments": {
+                    "name": "comments",
+                    "isArray": true,
+                    "type": {
+                        "model": "Comment"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "postID"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -65,6 +79,66 @@ export const schema = {
                     "properties": {}
                 }
             ]
+        },
+        "Comment": {
+            "name": "Comment",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "postID": {
+                    "name": "postID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "content": {
+                    "name": "content",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Comments",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPost",
+                        "fields": [
+                            "postID",
+                            "content"
+                        ]
+                    }
+                }
+            ]
         }
     },
     "enums": {
@@ -77,5 +151,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "c8f7b72ad6040a2f04d1500f59aa83e0"
+    "version": "6bb2339b1deb95f4fd76adcfa59034b7"
 };

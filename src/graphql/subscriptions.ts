@@ -10,6 +10,20 @@ export const onCreatePost = /* GraphQL */ `
       status
       rating
       content
+      comments {
+        items {
+          id
+          postID
+          content
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -26,6 +40,20 @@ export const onUpdatePost = /* GraphQL */ `
       status
       rating
       content
+      comments {
+        items {
+          id
+          postID
+          content
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -41,6 +69,62 @@ export const onDeletePost = /* GraphQL */ `
       title
       status
       rating
+      content
+      comments {
+        items {
+          id
+          postID
+          content
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment {
+    onCreateComment {
+      id
+      postID
+      content
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment {
+    onUpdateComment {
+      id
+      postID
+      content
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment {
+    onDeleteComment {
+      id
+      postID
       content
       _version
       _deleted

@@ -16,6 +16,7 @@ import {
 } from "semantic-ui-react";
 import { useStyles } from "./styles";
 import { Post, PostStatus } from "../../models";
+import { Link } from "react-router-dom";
 
 const statusOptions = [
   {
@@ -181,6 +182,8 @@ const Posts = () => {
     }
   }
 
+  // When you delete a parent object in a one to many relationship, the children will also
+  // be removed from the DataStore and mutations for this deletion will be sent over the network
   async function deletePost(postToDelete: Post) {
     // const original = await DataStore.query(Post, post.id);
     try {
@@ -319,43 +322,45 @@ const Posts = () => {
         <Button onClick={addPost}>Create Post</Button>
         <List>
           {posts.map((post, index) => (
-            <ListItem key={post.id ? post.id : index}>
-              <ListContent floated="right">
-                <Button onClick={() => deletePost(post)} icon circular>
-                  <Icon name="delete" color="red" />
-                </Button>
-              </ListContent>
-              <ListContent>
-                <ListHeader>
-                  <Input
-                    onChange={(event) =>
-                      editPostTitle(event.target.value, post)
-                    }
-                    value={post.title}
-                  />
-                </ListHeader>
-                <ListDescription>
-                  <Input
-                    onChange={(event) =>
-                      editPostRating(event.target.value, post)
-                    }
-                    value={post.rating}
-                  />
-                </ListDescription>
-                <ListDescription>
-                  <Dropdown
-                    placeholder="Select Status"
-                    fluid
-                    selection
-                    options={statusOptions}
-                    onChange={(event, data) =>
-                      editPostStatus(data.value as PostStatus, post)
-                    }
-                    value={post.status}
-                  />
-                </ListDescription>
-              </ListContent>
-            </ListItem>
+            <Link to={`posts/${post.id}`}>
+              <ListItem key={post.id ? post.id : index}>
+                <ListContent floated="right">
+                  <Button onClick={() => deletePost(post)} icon circular>
+                    <Icon name="delete" color="red" />
+                  </Button>
+                </ListContent>
+                <ListContent>
+                  <ListHeader>
+                    <Input
+                      onChange={(event) =>
+                        editPostTitle(event.target.value, post)
+                      }
+                      value={post.title}
+                    />
+                  </ListHeader>
+                  <ListDescription>
+                    <Input
+                      onChange={(event) =>
+                        editPostRating(event.target.value, post)
+                      }
+                      value={post.rating}
+                    />
+                  </ListDescription>
+                  <ListDescription>
+                    <Dropdown
+                      placeholder="Select Status"
+                      fluid
+                      selection
+                      options={statusOptions}
+                      onChange={(event, data) =>
+                        editPostStatus(data.value as PostStatus, post)
+                      }
+                      value={post.status}
+                    />
+                  </ListDescription>
+                </ListContent>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </div>
