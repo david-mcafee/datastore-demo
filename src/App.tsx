@@ -1,6 +1,6 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Analytics, Auth } from "aws-amplify";
+import { Analytics, Auth, Hub } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
@@ -80,6 +80,24 @@ Analytics.autoTrack("pageView", {
 
 const App = () => {
   const [userState, dispatch] = useReducer(reducer, initialState);
+  const [networkStatus, setNetworkStatus] = useState("offline");
+
+  // Hub
+  // https://docs.amplify.aws/lib/datastore/datastore-events/q/platform/js/#networkstatus
+  useEffect(() => {
+    // Create listener
+    const listener = Hub.listen("datastore", async (hubData) => {
+      const { event, data } = hubData.payload;
+      console.log("Hub event:", event);
+      console.log("Hub data:", data);
+      if (event === "networkStatus") {
+        setNetworkStatus(data.active);
+      }
+    });
+
+    // Remove listener
+    return listener;
+  }, []);
 
   async function getUser() {
     let response;
@@ -100,7 +118,10 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Nav username={userState?.user?.username} />
+        <Nav
+          username={userState?.user?.username}
+          networkStatus={networkStatus}
+        />
 
         {/*
           A <Switch> looks through all its children <Route>

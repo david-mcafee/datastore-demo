@@ -60,6 +60,15 @@ const Posts = () => {
     fetchEditorPostRelationships();
   }, []);
 
+  // ALL Subscriptions
+  useEffect(() => {
+    const subscription = DataStore.observe(Post).subscribe((msg) => {
+      console.log(msg.model, msg.opType, msg.element);
+    });
+
+    return subscription.unsubscribe;
+  }, []);
+
   function setInput(key: string, value: string | number) {
     setFormState({ ...formState, [key]: value });
   }
@@ -255,19 +264,6 @@ const Posts = () => {
     }
   }
 
-  // Hub
-  // useEffect(() => {
-  //   // Create listener
-  //   const listener = Hub.listen("datastore", async (hubData) => {
-  //     const { event, data } = hubData.payload;
-  //     console.log("Hub event:", event);
-  //     console.log("Hub data:", data);
-  //   });
-
-  //   // Remove listener
-  //   return listener;
-  // }, []);
-
   return (
     <div className={parentContainer}>
       <div className={container}>
@@ -367,45 +363,46 @@ const Posts = () => {
         <Button onClick={createPostWithEditor}>Create Post</Button>
         <List>
           {posts.map((post, index) => (
-            <Link to={`posts/${post.id}`}>
-              <ListItem key={post.id ? post.id : index}>
-                <ListContent floated="right">
-                  <Button onClick={() => deletePost(post)} icon circular>
-                    <Icon name="delete" color="red" />
-                  </Button>
-                </ListContent>
-                <ListContent>
-                  <ListHeader>
-                    <Input
-                      onChange={(event) =>
-                        editPostTitle(event.target.value, post)
-                      }
-                      value={post.title}
-                    />
-                  </ListHeader>
-                  <ListDescription>
-                    <Input
-                      onChange={(event) =>
-                        editPostRating(event.target.value, post)
-                      }
-                      value={post.rating}
-                    />
-                  </ListDescription>
-                  <ListDescription>
-                    <Dropdown
-                      placeholder="Select Status"
-                      fluid
-                      selection
-                      options={statusOptions}
-                      onChange={(event, data) =>
-                        editPostStatus(data.value as PostStatus, post)
-                      }
-                      value={post.status}
-                    />
-                  </ListDescription>
-                </ListContent>
-              </ListItem>
-            </Link>
+            <ListItem key={post.id ? post.id : index}>
+              <ListContent floated="right">
+                <Button onClick={() => deletePost(post)} icon circular>
+                  <Icon name="delete" color="red" />
+                </Button>
+                <Link to={`posts/${post.id}`}>
+                  <Button>Comments</Button>
+                </Link>
+              </ListContent>
+              <ListContent>
+                <ListHeader>
+                  <Input
+                    onChange={(event) =>
+                      editPostTitle(event.target.value, post)
+                    }
+                    value={post.title}
+                  />
+                </ListHeader>
+                <ListDescription>
+                  <Input
+                    onChange={(event) =>
+                      editPostRating(event.target.value, post)
+                    }
+                    value={post.rating}
+                  />
+                </ListDescription>
+                <ListDescription>
+                  <Dropdown
+                    placeholder="Select Status"
+                    fluid
+                    selection
+                    options={statusOptions}
+                    onChange={(event, data) =>
+                      editPostStatus(data.value as PostStatus, post)
+                    }
+                    value={post.status}
+                  />
+                </ListDescription>
+              </ListContent>
+            </ListItem>
           ))}
         </List>
       </div>
