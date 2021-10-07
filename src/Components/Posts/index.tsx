@@ -15,7 +15,7 @@ import {
   Modal,
 } from "semantic-ui-react";
 import { useStyles } from "./styles";
-import { Post, PostStatus } from "../../models";
+import { Post, PostEditor, PostStatus, User } from "../../models";
 import { Link } from "react-router-dom";
 
 const statusOptions = [
@@ -57,6 +57,7 @@ const Posts = () => {
 
   useEffect(() => {
     fetchPosts();
+    fetchEditorPostRelationships();
   }, []);
 
   function setInput(key: string, value: string | number) {
@@ -73,6 +74,16 @@ const Posts = () => {
       setPosts(posts);
     } catch (error) {
       console.log("Error retrieving posts", error);
+    }
+  }
+
+  async function fetchEditorPostRelationships() {
+    try {
+      // All post editor relationships
+      const results = await DataStore.query(PostEditor);
+      console.log(results);
+    } catch (error) {
+      console.log("error retrieving editor post relationships");
     }
   }
 
@@ -111,19 +122,53 @@ const Posts = () => {
   async function addPost() {
     try {
       if (!formState.title || !formState.status) return;
-      await DataStore.save(
+      const post = await DataStore.save(
         new Post({
           title: formState?.title,
           status: formState?.status,
         })
       );
       console.log("Post saved successfully!");
+      return post;
     } catch (error) {
       console.log("Error saving post", error);
     } finally {
       // TODO:
       fetchPosts();
     }
+  }
+
+  async function createEditor(post: any) {
+    try {
+      const editor = await DataStore.save(
+        new User({
+          username: "Test1",
+        })
+      );
+      return { editor: editor, post: post };
+    } catch (error) {
+      console.log("error creating editor");
+    }
+  }
+
+  async function addEditorToPost(tuple: any) {
+    try {
+      await DataStore.save(
+        new PostEditor({
+          post: tuple.post,
+          editor: tuple.editor,
+        })
+      );
+    } catch (error) {
+      console.log("error adding user to post");
+    }
+  }
+
+  async function createPostWithEditor() {
+    return addPost()
+      .then((post) => createEditor(post))
+      .then((tuple) => addEditorToPost(tuple))
+      .then(() => fetchEditorPostRelationships());
   }
 
   async function editPostTitle(value: string, post: Post) {
@@ -319,7 +364,7 @@ const Posts = () => {
             setInput("status", data.value as PostStatus);
           }}
         />
-        <Button onClick={addPost}>Create Post</Button>
+        <Button onClick={createPostWithEditor}>Create Post</Button>
         <List>
           {posts.map((post, index) => (
             <Link to={`posts/${post.id}`}>
