@@ -54,6 +54,20 @@ export const schema = {
                         "associatedWith": "postID"
                     }
                 },
+                "editors": {
+                    "name": "editors",
+                    "isArray": true,
+                    "type": {
+                        "model": "PostEditor"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "post"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -139,6 +153,147 @@ export const schema = {
                     }
                 }
             ]
+        },
+        "PostEditor": {
+            "name": "PostEditor",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "post": {
+                    "name": "post",
+                    "isArray": false,
+                    "type": {
+                        "model": "Post"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "postID"
+                    }
+                },
+                "editor": {
+                    "name": "editor",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "editorID"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "PostEditors",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {
+                        "queries": null
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPost",
+                        "fields": [
+                            "postID",
+                            "editorID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byEditor",
+                        "fields": [
+                            "editorID",
+                            "postID"
+                        ]
+                    }
+                }
+            ]
+        },
+        "User": {
+            "name": "User",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "username": {
+                    "name": "username",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "posts": {
+                    "name": "posts",
+                    "isArray": true,
+                    "type": {
+                        "model": "PostEditor"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "editor"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Users",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                }
+            ]
         }
     },
     "enums": {
@@ -151,5 +306,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "6bb2339b1deb95f4fd76adcfa59034b7"
+    "version": "1cafbe15ce69dd0be58adf2f730b286b"
 };

@@ -15,6 +15,14 @@ type CommentMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type PostEditorMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type UserMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class Post {
   readonly id: string;
   readonly title: string;
@@ -22,6 +30,7 @@ export declare class Post {
   readonly rating?: number;
   readonly content?: string;
   readonly comments?: (Comment | null)[];
+  readonly editors?: (PostEditor | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Post, PostMetaData>);
@@ -36,4 +45,24 @@ export declare class Comment {
   readonly updatedAt?: string;
   constructor(init: ModelInit<Comment, CommentMetaData>);
   static copyOf(source: Comment, mutator: (draft: MutableModel<Comment, CommentMetaData>) => MutableModel<Comment, CommentMetaData> | void): Comment;
+}
+
+export declare class PostEditor {
+  readonly id: string;
+  readonly post: Post;
+  readonly editor: User;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<PostEditor, PostEditorMetaData>);
+  static copyOf(source: PostEditor, mutator: (draft: MutableModel<PostEditor, PostEditorMetaData>) => MutableModel<PostEditor, PostEditorMetaData> | void): PostEditor;
+}
+
+export declare class User {
+  readonly id: string;
+  readonly username: string;
+  readonly posts?: (PostEditor | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<User, UserMetaData>);
+  static copyOf(source: User, mutator: (draft: MutableModel<User, UserMetaData>) => MutableModel<User, UserMetaData> | void): User;
 }

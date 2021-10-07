@@ -25,6 +25,10 @@ export const syncPosts = /* GraphQL */ `
           nextToken
           startedAt
         }
+        editors {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -58,6 +62,20 @@ export const getPost = /* GraphQL */ `
         nextToken
         startedAt
       }
+      editors {
+        items {
+          id
+          postID
+          editorID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -80,6 +98,10 @@ export const listPosts = /* GraphQL */ `
         rating
         content
         comments {
+          nextToken
+          startedAt
+        }
+        editors {
           nextToken
           startedAt
         }
@@ -147,6 +169,138 @@ export const listComments = /* GraphQL */ `
         id
         postID
         content
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncPostEditors = /* GraphQL */ `
+  query SyncPostEditors(
+    $filter: ModelPostEditorFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncPostEditors(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        postID
+        editorID
+        post {
+          id
+          title
+          status
+          rating
+          content
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        editor {
+          id
+          username
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncUsers = /* GraphQL */ `
+  query SyncUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        username
+        posts {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      username
+      posts {
+        items {
+          id
+          postID
+          editorID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        posts {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt

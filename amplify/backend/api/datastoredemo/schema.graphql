@@ -6,6 +6,8 @@ type Post @model {
   content: String
   # New field with @connection
   comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  # https://docs.amplify.aws/lib/datastore/relational/q/platform/js/#many-to-many
+  editors: [PostEditor] @connection(keyName: "byPost", fields: ["id"])
 }
 
 enum PostStatus {
@@ -19,4 +21,21 @@ type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
   id: ID!
   postID: ID!
   content: String!
+}
+
+type PostEditor
+  @model(queries: null)
+  @key(name: "byPost", fields: ["postID", "editorID"])
+  @key(name: "byEditor", fields: ["editorID", "postID"]) {
+  id: ID!
+  postID: ID!
+  editorID: ID!
+  post: Post! @connection(fields: ["postID"])
+  editor: User! @connection(fields: ["editorID"])
+}
+
+type User @model {
+  id: ID!
+  username: String!
+  posts: [PostEditor] @connection(keyName: "byEditor", fields: ["id"])
 }
