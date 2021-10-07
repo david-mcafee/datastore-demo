@@ -18,34 +18,25 @@ export const createPost = /* GraphQL */ `
           id
           postID
           content
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         nextToken
-        startedAt
       }
       editors {
         items {
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -65,34 +56,25 @@ export const updatePost = /* GraphQL */ `
           id
           postID
           content
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         nextToken
-        startedAt
       }
       editors {
         items {
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -112,34 +94,25 @@ export const deletePost = /* GraphQL */ `
           id
           postID
           content
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         nextToken
-        startedAt
       }
       editors {
         items {
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -152,11 +125,9 @@ export const createComment = /* GraphQL */ `
       id
       postID
       content
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -169,11 +140,9 @@ export const updateComment = /* GraphQL */ `
       id
       postID
       content
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -186,11 +155,9 @@ export const deleteComment = /* GraphQL */ `
       id
       postID
       content
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -211,34 +178,24 @@ export const createPostEditor = /* GraphQL */ `
         content
         comments {
           nextToken
-          startedAt
         }
         editors {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       editor {
         id
         username
         posts {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -261,34 +218,24 @@ export const updatePostEditor = /* GraphQL */ `
         content
         comments {
           nextToken
-          startedAt
         }
         editors {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       editor {
         id
         username
         posts {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -311,34 +258,24 @@ export const deletePostEditor = /* GraphQL */ `
         content
         comments {
           nextToken
-          startedAt
         }
         editors {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       editor {
         id
         username
         posts {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -357,20 +294,14 @@ export const createUser = /* GraphQL */ `
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -387,20 +318,14 @@ export const updateUser = /* GraphQL */ `
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -417,20 +342,14 @@ export const deleteUser = /* GraphQL */ `
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;

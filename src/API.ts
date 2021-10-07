@@ -8,7 +8,6 @@ export type CreatePostInput = {
   status: PostStatus,
   rating?: number | null,
   content?: string | null,
-  _version?: number | null,
 };
 
 export enum PostStatus {
@@ -93,18 +92,15 @@ export type Post = {
   content?: string | null,
   comments?: ModelCommentConnection | null,
   editors?: ModelPostEditorConnection | null,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type ModelCommentConnection = {
   __typename: "ModelCommentConnection",
   items?:  Array<Comment | null > | null,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Comment = {
@@ -112,18 +108,15 @@ export type Comment = {
   id: string,
   postID: string,
   content: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type ModelPostEditorConnection = {
   __typename: "ModelPostEditorConnection",
   items?:  Array<PostEditor | null > | null,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type PostEditor = {
@@ -133,9 +126,6 @@ export type PostEditor = {
   editorID: string,
   post: Post,
   editor: User,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
 };
@@ -145,11 +135,9 @@ export type User = {
   id: string,
   username: string,
   posts?: ModelPostEditorConnection | null,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdatePostInput = {
@@ -158,19 +146,16 @@ export type UpdatePostInput = {
   status?: PostStatus | null,
   rating?: number | null,
   content?: string | null,
-  _version?: number | null,
 };
 
 export type DeletePostInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateCommentInput = {
   id?: string | null,
   postID: string,
   content: string,
-  _version?: number | null,
 };
 
 export type ModelCommentConditionInput = {
@@ -201,19 +186,16 @@ export type UpdateCommentInput = {
   id: string,
   postID?: string | null,
   content?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteCommentInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreatePostEditorInput = {
   id?: string | null,
   postID: string,
   editorID: string,
-  _version?: number | null,
 };
 
 export type ModelPostEditorConditionInput = {
@@ -228,18 +210,15 @@ export type UpdatePostEditorInput = {
   id: string,
   postID?: string | null,
   editorID?: string | null,
-  _version?: number | null,
 };
 
 export type DeletePostEditorInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateUserInput = {
   id?: string | null,
   username: string,
-  _version?: number | null,
 };
 
 export type ModelUserConditionInput = {
@@ -252,12 +231,10 @@ export type ModelUserConditionInput = {
 export type UpdateUserInput = {
   id: string,
   username?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteUserInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type ModelPostFilterInput = {
@@ -275,7 +252,6 @@ export type ModelPostConnection = {
   __typename: "ModelPostConnection",
   items?:  Array<Post | null > | null,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelCommentFilterInput = {
@@ -285,15 +261,6 @@ export type ModelCommentFilterInput = {
   and?: Array< ModelCommentFilterInput | null > | null,
   or?: Array< ModelCommentFilterInput | null > | null,
   not?: ModelCommentFilterInput | null,
-};
-
-export type ModelPostEditorFilterInput = {
-  id?: ModelIDInput | null,
-  postID?: ModelIDInput | null,
-  editorID?: ModelIDInput | null,
-  and?: Array< ModelPostEditorFilterInput | null > | null,
-  or?: Array< ModelPostEditorFilterInput | null > | null,
-  not?: ModelPostEditorFilterInput | null,
 };
 
 export type ModelUserFilterInput = {
@@ -308,7 +275,6 @@ export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items?:  Array<User | null > | null,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type CreatePostMutationVariables = {
@@ -331,14 +297,11 @@ export type CreatePostMutation = {
         id: string,
         postID: string,
         content: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     editors?:  {
       __typename: "ModelPostEditorConnection",
@@ -347,20 +310,14 @@ export type CreatePostMutation = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -384,14 +341,11 @@ export type UpdatePostMutation = {
         id: string,
         postID: string,
         content: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     editors?:  {
       __typename: "ModelPostEditorConnection",
@@ -400,20 +354,14 @@ export type UpdatePostMutation = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -437,14 +385,11 @@ export type DeletePostMutation = {
         id: string,
         postID: string,
         content: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     editors?:  {
       __typename: "ModelPostEditorConnection",
@@ -453,20 +398,14 @@ export type DeletePostMutation = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -481,11 +420,9 @@ export type CreateCommentMutation = {
     id: string,
     postID: string,
     content: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -500,11 +437,9 @@ export type UpdateCommentMutation = {
     id: string,
     postID: string,
     content: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -519,11 +454,9 @@ export type DeleteCommentMutation = {
     id: string,
     postID: string,
     content: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -548,18 +481,14 @@ export type CreatePostEditorMutation = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       editors?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
     editor:  {
       __typename: "User",
@@ -568,17 +497,11 @@ export type CreatePostEditorMutation = {
       posts?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -605,18 +528,14 @@ export type UpdatePostEditorMutation = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       editors?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
     editor:  {
       __typename: "User",
@@ -625,17 +544,11 @@ export type UpdatePostEditorMutation = {
       posts?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -662,18 +575,14 @@ export type DeletePostEditorMutation = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       editors?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
     editor:  {
       __typename: "User",
@@ -682,17 +591,11 @@ export type DeletePostEditorMutation = {
       posts?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -715,20 +618,14 @@ export type CreateUserMutation = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -749,20 +646,14 @@ export type UpdateUserMutation = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -783,58 +674,14 @@ export type DeleteUserMutation = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type SyncPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncPostsQuery = {
-  syncPosts?:  {
-    __typename: "ModelPostConnection",
-    items?:  Array< {
-      __typename: "Post",
-      id: string,
-      title: string,
-      status: PostStatus,
-      rating?: number | null,
-      content?: string | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      editors?:  {
-        __typename: "ModelPostEditorConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-    startedAt?: number | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -857,14 +704,11 @@ export type GetPostQuery = {
         id: string,
         postID: string,
         content: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     editors?:  {
       __typename: "ModelPostEditorConnection",
@@ -873,20 +717,14 @@ export type GetPostQuery = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -909,47 +747,16 @@ export type ListPostsQuery = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       editors?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCommentsQueryVariables = {
-  filter?: ModelCommentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCommentsQuery = {
-  syncComments?:  {
-    __typename: "ModelCommentConnection",
-    items?:  Array< {
-      __typename: "Comment",
-      id: string,
-      postID: string,
-      content: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -963,11 +770,9 @@ export type GetCommentQuery = {
     id: string,
     postID: string,
     content: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -985,93 +790,11 @@ export type ListCommentsQuery = {
       id: string,
       postID: string,
       content: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncPostEditorsQueryVariables = {
-  filter?: ModelPostEditorFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncPostEditorsQuery = {
-  syncPostEditors?:  {
-    __typename: "ModelPostEditorConnection",
-    items?:  Array< {
-      __typename: "PostEditor",
-      id: string,
-      postID: string,
-      editorID: string,
-      post:  {
-        __typename: "Post",
-        id: string,
-        title: string,
-        status: PostStatus,
-        rating?: number | null,
-        content?: string | null,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      editor:  {
-        __typename: "User",
-        id: string,
-        username: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
-        createdAt: string,
-        updatedAt: string,
-      },
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUsersQuery = {
-  syncUsers?:  {
-    __typename: "ModelUserConnection",
-    items?:  Array< {
-      __typename: "User",
-      id: string,
-      username: string,
-      posts?:  {
-        __typename: "ModelPostEditorConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1091,20 +814,14 @@ export type GetUserQuery = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -1124,17 +841,17 @@ export type ListUsersQuery = {
       posts?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
+};
+
+export type OnCreatePostSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnCreatePostSubscription = {
@@ -1152,14 +869,11 @@ export type OnCreatePostSubscription = {
         id: string,
         postID: string,
         content: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     editors?:  {
       __typename: "ModelPostEditorConnection",
@@ -1168,21 +882,19 @@ export type OnCreatePostSubscription = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdatePostSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnUpdatePostSubscription = {
@@ -1200,14 +912,11 @@ export type OnUpdatePostSubscription = {
         id: string,
         postID: string,
         content: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     editors?:  {
       __typename: "ModelPostEditorConnection",
@@ -1216,21 +925,19 @@ export type OnUpdatePostSubscription = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeletePostSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnDeletePostSubscription = {
@@ -1248,14 +955,11 @@ export type OnDeletePostSubscription = {
         id: string,
         postID: string,
         content: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     editors?:  {
       __typename: "ModelPostEditorConnection",
@@ -1264,21 +968,19 @@ export type OnDeletePostSubscription = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnCreateCommentSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnCreateCommentSubscription = {
@@ -1287,12 +989,14 @@ export type OnCreateCommentSubscription = {
     id: string,
     postID: string,
     content: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateCommentSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnUpdateCommentSubscription = {
@@ -1301,12 +1005,14 @@ export type OnUpdateCommentSubscription = {
     id: string,
     postID: string,
     content: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteCommentSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnDeleteCommentSubscription = {
@@ -1315,11 +1021,9 @@ export type OnDeleteCommentSubscription = {
     id: string,
     postID: string,
     content: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -1339,18 +1043,14 @@ export type OnCreatePostEditorSubscription = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       editors?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
     editor:  {
       __typename: "User",
@@ -1359,17 +1059,11 @@ export type OnCreatePostEditorSubscription = {
       posts?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1391,18 +1085,14 @@ export type OnUpdatePostEditorSubscription = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       editors?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
     editor:  {
       __typename: "User",
@@ -1411,17 +1101,11 @@ export type OnUpdatePostEditorSubscription = {
       posts?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1443,18 +1127,14 @@ export type OnDeletePostEditorSubscription = {
       comments?:  {
         __typename: "ModelCommentConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       editors?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
     editor:  {
       __typename: "User",
@@ -1463,20 +1143,18 @@ export type OnDeletePostEditorSubscription = {
       posts?:  {
         __typename: "ModelPostEditorConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     },
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateUserSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnCreateUserSubscription = {
@@ -1491,21 +1169,19 @@ export type OnCreateUserSubscription = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateUserSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnUpdateUserSubscription = {
@@ -1520,21 +1196,19 @@ export type OnUpdateUserSubscription = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteUserSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnDeleteUserSubscription = {
@@ -1549,19 +1223,13 @@ export type OnDeleteUserSubscription = {
         id: string,
         postID: string,
         editorID: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };

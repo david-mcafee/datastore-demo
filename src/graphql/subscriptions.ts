@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
+  subscription OnCreatePost($owner: String!) {
+    onCreatePost(owner: $owner) {
       id
       title
       status
@@ -15,40 +15,31 @@ export const onCreatePost = /* GraphQL */ `
           id
           postID
           content
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         nextToken
-        startedAt
       }
       editors {
         items {
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
+  subscription OnUpdatePost($owner: String!) {
+    onUpdatePost(owner: $owner) {
       id
       title
       status
@@ -59,40 +50,31 @@ export const onUpdatePost = /* GraphQL */ `
           id
           postID
           content
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         nextToken
-        startedAt
       }
       editors {
         items {
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
+  subscription OnDeletePost($owner: String!) {
+    onDeletePost(owner: $owner) {
       id
       title
       status
@@ -103,76 +85,61 @@ export const onDeletePost = /* GraphQL */ `
           id
           postID
           content
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         nextToken
-        startedAt
       }
       editors {
         items {
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment {
-    onCreateComment {
+  subscription OnCreateComment($owner: String!) {
+    onCreateComment(owner: $owner) {
       id
       postID
       content
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment {
-    onUpdateComment {
+  subscription OnUpdateComment($owner: String!) {
+    onUpdateComment(owner: $owner) {
       id
       postID
       content
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment {
-    onDeleteComment {
+  subscription OnDeleteComment($owner: String!) {
+    onDeleteComment(owner: $owner) {
       id
       postID
       content
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -190,34 +157,24 @@ export const onCreatePostEditor = /* GraphQL */ `
         content
         comments {
           nextToken
-          startedAt
         }
         editors {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       editor {
         id
         username
         posts {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -237,34 +194,24 @@ export const onUpdatePostEditor = /* GraphQL */ `
         content
         comments {
           nextToken
-          startedAt
         }
         editors {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       editor {
         id
         username
         posts {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -284,42 +231,32 @@ export const onDeletePostEditor = /* GraphQL */ `
         content
         comments {
           nextToken
-          startedAt
         }
         editors {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       editor {
         id
         username
         posts {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
   }
 `;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
+  subscription OnCreateUser($owner: String!) {
+    onCreateUser(owner: $owner) {
       id
       username
       posts {
@@ -327,26 +264,20 @@ export const onCreateUser = /* GraphQL */ `
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser {
-    onUpdateUser {
+  subscription OnUpdateUser($owner: String!) {
+    onUpdateUser(owner: $owner) {
       id
       username
       posts {
@@ -354,26 +285,20 @@ export const onUpdateUser = /* GraphQL */ `
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser {
-    onDeleteUser {
+  subscription OnDeleteUser($owner: String!) {
+    onDeleteUser(owner: $owner) {
       id
       username
       posts {
@@ -381,20 +306,14 @@ export const onDeleteUser = /* GraphQL */ `
           id
           postID
           editorID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
