@@ -84,6 +84,7 @@ const PostComments = ({ postId }: PostCommentProps) => {
           postID: postId,
         })
       );
+      setFormState(initialFormState);
       console.log("Comment saved successfully!");
     } catch (error) {
       console.log("Error saving comment", error);

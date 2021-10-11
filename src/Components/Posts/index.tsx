@@ -137,6 +137,7 @@ const Posts = () => {
           status: formState?.status,
         })
       );
+      setFormState(initialState);
       console.log("Post saved successfully!");
       return post;
     } catch (error) {
